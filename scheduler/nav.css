@@ -1,0 +1,32 @@
+.navBox{
+    background: #2d3e3f;
+	float: left;
+	width: 140px;
+	height: 300px;
+	padding-bottom: 20px;
+	position: relative;
+	top: 30px;
+	margin: auto;
+}
+.navSec{
+	height: 35px;
+	width: 140px;
+	margin-top: 5px;
+}
+.iconBox{
+	float: left;
+	color: yellowgreen;
+	height: 35px;
+	width: 40px;
+	line-height: 25px;
+	text-align: center;
+}
+.navText{
+	float: right;
+	text-align: left;
+	height: 35px;
+	width: 80px;
+	border: none;
+	color: rgb(255, 255, 255);
+  padding-left: 20px;
+}
