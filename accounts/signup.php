@@ -34,6 +34,16 @@ if(isset($_POST['Submit'])){
     elseif(empty($password)){
         $message='Fill in password';
     }
+    $sql="SELECT name FROM admin WHERE building='$building';";
+    $result=mysqli_query($database,$sql);
+    $db_account=mysqli_fetch_assoc($result);
+   
+    
+    if((mysqli_num_rows($result))>0)
+    {
+        $message='ERROR';
+    }
+ 
     if(empty($message)){
         $password=crypt('$password','123');
         $sql="INSERT INTO admin(name,building,phone,email,password)
@@ -144,7 +154,13 @@ if(isset($_POST['Submit'])){
         <!--Submit Button-->
         </form>
         <div><a href="login.php" style="color:greenyellow">Go to login</a></div>
-        <div style='color:red; text-align:center'><?php if(!empty($message)){echo $message;}?></div>
+        <div style='color:red; text-align:center'>
+            <?php 
+                if(!empty($message)){echo '<p>'.$message.'</p>';}
+                if(isset($db_account)){echo 'BUILDING ALREADY REGISTERED BY:'.$db_account['name'];}
+                
+            ?>
+        </div>
     </div>
 <!--Body of Form ends-->
 </body>
