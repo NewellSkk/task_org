@@ -1,11 +1,6 @@
 <?php
 
-$database=mysqli_connect('localhost','newell','Trojan','scheduler');
-if(!$database){
-    echo "databaSe failed to connect" .mysqli_connect_error();
-} else{
-  echo "<p style='color:white'>Database connected";
-}
+require'../connect.php';
 
 if(isset($_POST['Submit'])){
     $name=$building=$email=$phone=$password="";
@@ -34,7 +29,7 @@ if(isset($_POST['Submit'])){
     elseif(empty($password)){
         $message='Fill in password';
     }
-    $sql="SELECT name FROM admin WHERE building='$building';";
+    $sql="SELECT * FROM admin WHERE building='$building';";
     $result=mysqli_query($database,$sql);
     $db_account=mysqli_fetch_assoc($result);
    
@@ -45,7 +40,7 @@ if(isset($_POST['Submit'])){
     }
  
     if(empty($message)){
-        $password=crypt('$password','123');
+        $password=password_hash($password,PASSWORD_DEFAULT);
         $sql="INSERT INTO admin(name,building,phone,email,password)
         VALUES('$name','$building','$phone','$email','$password')";
         if ($database->query($sql)===TRUE) 
@@ -69,11 +64,14 @@ if(isset($_POST['Submit'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup form</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="sign-up.css">
 </head>
 <body>
 <!-- Body of Form starts -->
     <div class="container">
+        <div class='title'>
+            sign-up
+        </div>
        
         <form action="signup.php" method="post">
         <!--name-->
@@ -84,7 +82,7 @@ if(isset($_POST['Submit'])){
                 </div>
                 <div class="fl">
                         <input type="text" name="name" placeholder="Name"
-                class="textBox" autofocus="on" require>
+                class="textBox" autofocus="on" required>
                 </div>
                 
             </div>

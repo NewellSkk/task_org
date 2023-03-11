@@ -1,4 +1,43 @@
 <?php
+    session_start();
+    require'../connect.php';
+    if(isset($_POST['Login'])){
+        $building=$email=$password='';
+
+        $building=htmlspecialchars($_POST['building']);
+        $email=htmlspecialchars($_POST['email']);
+        $password=htmlspecialchars($_POST['password']);
+
+        $message='';
+        if(empty($building)){
+            $message='Enter building name';
+        }
+        elseif(empty($email)){
+            $message='Enter email';
+        }
+        elseif(empty($password)){
+            $message='Enter password';
+        }
+
+        //CROSS CHECKING LOGIN DATA WITH DATABASE
+        $sql="SELECT * FROM admin WHERE building='$building';";
+        $result=mysqli_query($database,$sql);
+        $db_data=mysqli_fetch_assoc($result);
+        $db_pass=$db_data['password'];
+        if(password_verify($password,$db_pass)){
+            $_SESSION['building']=$building;
+            $_SESSION['name']=$db_data['name'];
+            $_SESSION['email']=$db_data['email'];
+
+            header("Location:index.php");
+
+        }
+        else{
+            $message="Error";
+        }
+        
+
+    }    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,20 +47,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="sign-up.css">
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
 <!-- Body of Form starts -->
     <div class="container">
-        <form method="post">
+        <div class='title'>
+            login
+        </div>
+        <form method="post" action="#">
        
         <!--Building name-->
             <div class="box">
-            <label for="buildingName" class="fl label"> Building name: </label>
+                <label for="buildingName" class="fl label"> Building name: </label>
                 <div class="fl iconBox"><i class="material-icons">location_city</i></div>
-                <div class="fr">
-                        <input type="text" required name="buildingName"
+                <div class="fl">
+                        <input type="text" required name="building"
                 placeholder="Building Name" class="textBox">
                 </div>
                 
@@ -32,7 +74,7 @@
             <div class="box">
             <label for="email" class="fl label"> Email Address: </label>
                 <div class="fl iconBox"><i class="material-icons" >email</i></div>
-                <div class="fr">
+                <div class="fl">
                         <input type="email" required name="email" placeholder="Email " class="textBox">
                 </div>
                 
@@ -44,7 +86,7 @@
             <div class="box">
             <label for="password" class="fl label"> Password </label>
                 <div class="fl iconBox"><i class="material-icons">vpn_key</i></div>
-                <div class="fr">
+                <div class="fl">
                         <input type="Password" required name="password" placeholder="Password" class="textBox">
                 </div>
                 
@@ -53,11 +95,16 @@
 
         <!--Login Button-->
             <div class="box" >
-                                       <button class="fr submit">LOGIN</button>
+                <input type="Submit" name="Login" class="fr submit" value="LOGIN">
             </div>
         <!--Login Button-->
         </form>
         <div><a href="signup.php">Create account</a></div>
+        <div style='color:red; text-align:center'>
+            <?php 
+                if(!empty($message)){echo '<p>'.$message.'</p>';}                
+            ?>
+        </div>
     </div>
 <!--Body of Form ends-->
 </body>
