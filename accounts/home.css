@@ -1,0 +1,15 @@
+.container{
+	background: cadetblue;
+    color: black;
+	width: auto;
+	min-height: 80vh;
+	padding-bottom: 20px;
+	position: relative;
+	top: 5px;
+	margin: auto;
+
+}
+.tenant_form{
+	display: none;
+}
+

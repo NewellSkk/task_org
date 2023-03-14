@@ -8,11 +8,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style><?php require'nav.css';?></style>
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="home.css">
+
 </head>
 <body>
     <?php 
     require'nav.php'
     ?>
+     <div class='container'>
+
+</div>
 </body>
 </html>
