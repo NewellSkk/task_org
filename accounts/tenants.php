@@ -1,4 +1,26 @@
-<?php
+<?php   
+    require'../connect.php';
+    $ten_name=$ten_email=$ten_house=$message='';
+    $password=('123');
+    if(isset($_POST['Add'])){
+        $ten_name=htmlspecialchars($_POST['name']);
+        $ten_email=htmlspecialchars($_POST['email']);
+        $ten_house=htmlspecialchars($_POST['house']);
+
+        $password=password_hash($password,PASSWORD_DEFAULT);
+        $sql="INSERT INTO tenant(name,email,house_no,password)
+        VALUES('$ten_name','$ten_email','$ten_house','$password')";
+        if ($database->query($sql)===TRUE) 
+        {
+            $message='<p style="color:green">TENANT ADDED';
+        }
+
+ 
+    }
+    if(isset($_POST['Remove'])){
+        $ten_house=htmlspecialchars($_POST['house']);
+    }
+    $database->close();
    
 ?>
 <!DOCTYPE html>
@@ -11,7 +33,7 @@
     <link rel="stylesheet" href="sign-up.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="nav.css">
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="index.css">
 
 
 </head>
@@ -27,7 +49,7 @@
                 <!--House Number-->
                     <div class="box">
                         <label for="buildingName" class="fl label"> House Number: </label>
-                        <div class="fl iconBox"><i class="material-icons">location_city</i></div>
+                        <div class="fl iconBox"><i class="material-icons">home</i></div>
                         <div class="fl">
                                 <input type="text" required name="house"
                         placeholder="House Number" class="textBox">
@@ -51,7 +73,7 @@
                 <!--Name-->
                     <div class="box">
                     <label for="password" class="fl label"> Name </label>
-                        <div class="fl iconBox"><i class="material-icons">vpn_key</i></div>
+                        <div class="fl iconBox"><i class="material-icons">person</i></div>
                         <div class="fl">
                                 <input type="text" required name="name" placeholder="Name" class="textBox">
                         </div>
@@ -67,6 +89,10 @@
                 <!--Buttons-->
             </form>
         </div>
+        <p><?php 
+                if(!empty($message)){echo '<p>'.$message.'</p>';}
+                ?>    
+        </p>        
         <p>WAGWAN_TEST_TEXT</p>
     </div>
     <script src="tenants.js"></script>

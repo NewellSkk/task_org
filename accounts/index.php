@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="nav.css">
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="index.css">
 
 </head>
 <body>
@@ -17,7 +17,7 @@
     require'nav.php'
     ?>
      <div class='container'>
-
-</div>
+        conewseef
+     </div>
 </body>
 </html>
