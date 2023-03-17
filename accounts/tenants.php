@@ -7,6 +7,14 @@
         $ten_email=htmlspecialchars($_POST['email']);
         $ten_house=htmlspecialchars($_POST['house']);
 
+            // CHECKING IF THE DATA IS ALREADY SET
+        $sql="SELECT * FROM tenant WHERE house_no='$ten_house';";
+        $result=mysqli_query($database,$sql);    
+        if((mysqli_num_rows($result))>0)
+        {
+            $message='<p style="color:red">HOUSE NUMBER IS ALREADY IN THE DATABASE';
+        }else {
+            // INSERTING DATA IN DATABASE
         $password=password_hash($password,PASSWORD_DEFAULT);
         $sql="INSERT INTO tenant(name,email,house_no,password)
         VALUES('$ten_name','$ten_email','$ten_house','$password')";
@@ -14,6 +22,9 @@
         {
             $message='<p style="color:green">TENANT ADDED';
         }
+        }
+     
+
 
  
     }
@@ -90,7 +101,7 @@
             </form>
         </div>
         <p><?php 
-                if(!empty($message)){echo '<p>'.$message.'</p>';}
+                if(!empty($message)){echo $message.'</p>';}
                 ?>    
         </p>        
         <p>WAGWAN_TEST_TEXT</p>
