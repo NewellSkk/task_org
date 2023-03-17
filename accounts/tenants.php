@@ -30,6 +30,19 @@
     }
     if(isset($_POST['Remove'])){
         $ten_house=htmlspecialchars($_POST['house']);
+        $sql="SELECT * FROM tenant WHERE house_no='$ten_house';";
+        $result=mysqli_query($database,$sql);    
+        if((mysqli_num_rows($result))>0)
+        {
+            $sql="DELETE FROM tenant WHERE house_no = '$ten_house'";
+            if ($database->query($sql)===TRUE) 
+            {
+                $message='<p style="color:red">DELETED SUCCESSFULLY';
+            }
+    
+        }else{
+            $message='<p style="color:red">HOUSE NUMBER NOT FOUND';
+        }
     }
     $database->close();
    
