@@ -1,14 +1,18 @@
 <?php   
+    session_start();
     require'../connect.php';
+
     $ten_name=$ten_email=$ten_house=$message='';
     $password=('123');
+    $building=$_SESSION['building'];
     if(isset($_POST['Add'])){
         $ten_name=htmlspecialchars($_POST['name']);
         $ten_email=htmlspecialchars($_POST['email']);
         $ten_house=htmlspecialchars($_POST['house']);
+        
 
             // CHECKING IF THE DATA IS ALREADY SET
-        $sql="SELECT * FROM tenant WHERE house_no='$ten_house';";
+        $sql="SELECT * FROM tenant WHERE (house_no='$ten_house'AND building='$building');";
         $result=mysqli_query($database,$sql);    
         if((mysqli_num_rows($result))>0)
         {
@@ -16,8 +20,8 @@
         }else {
             // INSERTING DATA IN DATABASE
         $password=password_hash($password,PASSWORD_DEFAULT);
-        $sql="INSERT INTO tenant(name,email,house_no,password)
-        VALUES('$ten_name','$ten_email','$ten_house','$password')";
+        $sql="INSERT INTO tenant(name,email,house_no,building,password)
+        VALUES('$ten_name','$ten_email','$ten_house','$building','$password')";
         if ($database->query($sql)===TRUE) 
         {
             $message='<p style="color:green">TENANT ADDED';
@@ -30,11 +34,11 @@
     }
     if(isset($_POST['Remove'])){
         $ten_house=htmlspecialchars($_POST['house']);
-        $sql="SELECT * FROM tenant WHERE house_no='$ten_house';";
+        $sql="SELECT * FROM tenant WHERE (house_no='$ten_house'AND building='$building');";
         $result=mysqli_query($database,$sql);    
         if((mysqli_num_rows($result))>0)
         {
-            $sql="DELETE FROM tenant WHERE house_no = '$ten_house'";
+            $sql="DELETE FROM tenant WHERE house_no = '$ten_house' AND building='$building'";
             if ($database->query($sql)===TRUE) 
             {
                 $message='<p style="color:red">DELETED SUCCESSFULLY';

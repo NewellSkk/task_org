@@ -2,18 +2,14 @@
     session_start();
     require'../connect.php';
     if(isset($_POST['Login'])){
-        $building=$email=$password='';
+        $building=$password='';
 
         $building=htmlspecialchars($_POST['building']);
-        $email=htmlspecialchars($_POST['email']);
         $password=htmlspecialchars($_POST['password']);
 
         $message='';
         if(empty($building)){
             $message='Enter building name';
-        }
-        elseif(empty($email)){
-            $message='Enter email';
         }
         elseif(empty($password)){
             $message='Enter password';
@@ -27,7 +23,6 @@
         if(password_verify($password,$db_pass)){
             $_SESSION['building']=$building;
             $_SESSION['name']=$db_data['name'];
-            $_SESSION['email']=$db_data['email'];
 
             header("Location:index.php");
 
@@ -69,18 +64,6 @@
                 
             </div>
         <!--Building name-->
-
-        <!---Email ID-->
-            <div class="box">
-            <label for="email" class="fl label"> Email Address: </label>
-                <div class="fl iconBox"><i class="material-icons" >email</i></div>
-                <div class="fl">
-                        <input type="email" required name="email" placeholder="Email " class="textBox">
-                </div>
-                
-            </div>
-       <!--Email ID-->
-
 
         <!---Password-->
             <div class="box">
