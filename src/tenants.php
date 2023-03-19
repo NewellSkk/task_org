@@ -3,7 +3,7 @@
     require'../connect.php';
 
     $ten_name=$ten_email=$ten_house=$message='';
-    $password=('123');
+    $password='123';
     $building=$_SESSION['building'];
     if(isset($_POST['Add'])){
         $ten_name=htmlspecialchars($_POST['name']);
