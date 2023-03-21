@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="sign-up.css">
     <link rel="stylesheet" href="nav.css">
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="repo.css">
+    <link rel="stylesheet" href="report.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
+ 
 </head>
 <body>
     <?php
@@ -26,7 +26,7 @@
           <span class="plumbing">Plumbing</span>
         </div>
         <form action="" method="post">
-            <div class="list general" >
+            <div class="list show general" >
                 <table>
                    <tr><td> 
                     <input type="checkbox" name="locks">
@@ -63,9 +63,29 @@
                     </td></tr>
                 </table>
             </div>
+            <div class="list electric">
+                <table>
+                    <tr><td>
+                        <input type="checkbox" name="drain">
+                        <label for="drain">Light Switch</label>
+                    </td></tr>
+                    <tr><td>
+                        <input type="checkbox" name="taps">
+                        <label for="drain">Blown Fuse</label>
+                    </td></tr>
+                    <tr><td>
+                        <input type="checkbox" name="pipes">
+                        <label for="pipes">Bulb Replacement</label>
+                    </td></tr>
+                    <tr><td>
+                        <input type="checkbox" name="toilet">
+                        <label for="toilet">Flickering Lights</label>
+                    </td></tr>
+                </table>
+            </div>
         </form>
     </div>        
 
-    <script src="report.js"></script> 
+    <script src="ten_maintenance.js"></script> 
 </body>
 </html>

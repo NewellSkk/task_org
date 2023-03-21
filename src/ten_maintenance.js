@@ -4,14 +4,14 @@ active.forEach(show=>{
     show.addEventListener('click',()=>{
         document.querySelector('span.active').classList.remove('active');
         show.classList.add('active');
-        const ver= show.classList.contains;
         //INCOMPLETE
         //ADD CLASS WITH DIPLAY:BLOCK REMOVE DISPLAY:NONE  
-        if (ver('general')) {
+        document.querySelector('.show').classList.remove('show');
+        if (show.classList.contains('general')) {
             document.querySelector('div.general').classList.add('show');
-        }else if(ver('plumbing')){
+        }else if(show.classList.contains('plumbing')){
             document.querySelector('div.plumbing').classList.add('show');
-        }else if(ver('electric')){
+        }else if(show.classList.contains('electric')){
             document.querySelector('div.electric').classList.add('show');
         }
     });
