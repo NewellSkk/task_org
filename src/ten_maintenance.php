@@ -3,40 +3,48 @@ session_start();
 require'../connect.php';
 
 $house_no=$_SESSION['house_no'];
+$building=$_SESSION['building'];
 if(isset($_POST['Submit'])){
-    $locks=isset($_POST['locks']);
-    $window=isset($_POST['window']);
-    $tiles=isset($_POST['tiles']);
-    $other=isset($_POST['other']);
-    $drains=isset($_POST['drains']);
-    $taps=isset($_POST['taps']);
-    $pipes=isset($_POST['pipes']);
-    $cistern=isset($_POST['cistern']);
-    $switch=isset($_POST['switch']);
-    $fuse=isset($_POST['fuse']);
-    $bulb=isset($_POST['bulb']);
-    $lights=isset($_POST['lights']);;
+  
     $gen=array('locks','window','tiles','other');
     $gen_checked=array();
     foreach($gen as $i){
         if(isset($_POST[$i])){
-           $gen_checked[count($gen_checked)]=$i;
+            $sql="INSERT INTO tasks(house_no,building,category,task)
+            VALUES('$house_no','$building','general','$i')";
+          
+            if($database->query($sql)===TRUE){
+              $message="<p style='color:green'>Management will respond accordingly.</p>";
+            }else {
+              $message="<p style='color:red'>ERROR.</p>";
+            }   
         }       
     } 
     $plumbing=array('drain','taps','pipes','cistern');
-    $plumbing_checked=array();
     foreach($plumbing as $i){
         if(isset($_POST[$i])){
-           $plumbing_checked[count($plumbing_checked)]=$i;
+           $sql="INSERT INTO tasks(house_no,building,category,task)
+           VALUES('$house_no','$building','plumbing','$i')";
+           if($database->query($sql)===TRUE){
+             $message="<p style='color:green'>Management will respond accordingly.</p>";
+           }else {
+             $message="<p style='color:red'>ERROR.</p>";
+           }   
         }       
     } 
     $elec=array('switch','fuse','bulb','lights');
-    $elec_checked=array();
     foreach($elec as $i){
         if(isset($_POST[$i])){
-           $elec_checked[count($elec_checked)]=$i;
+           $sql="INSERT INTO tasks(house_no,building,category,task)
+           VALUES('$house_no','$building','electric','$i') ";
+           if($database->query($sql)===TRUE){
+            $message="<p style='color:green'>Management will respond accordingly.</p>";
+           }else {
+             $message="<p style='color:red'>ERROR.</p>";
+           }   
         }       
     } 
+    
 }
 
 ?>
@@ -65,7 +73,7 @@ if(isset($_POST['Submit'])){
           <span class="electric">Electric</span>
           <span class="plumbing">Plumbing</span>
         </div>
-        <?php echo $gen_checked[0];?>
+        
         <form action="#" method="post">
             <div class="list show general" >
                 <table>
@@ -131,6 +139,7 @@ if(isset($_POST['Submit'])){
             <div>
                                        <input type="Submit" name="Submit" class="fl" value="SUBMIT">
             </div>
+            <?php echo $message;?>
         </form>
     </div>        
 
