@@ -26,7 +26,7 @@
         if(password_verify($password,$db_pass)){
             $_SESSION['building']=$building;
             $_SESSION['house_no']=$house_no;
-
+            $_SESSION['ten_email']=$db_data['email'];
             header("Location:ten_home.php");
 
         }

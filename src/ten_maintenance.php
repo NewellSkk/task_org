@@ -4,14 +4,15 @@ require'../connect.php';
 
 $house_no=$_SESSION['house_no'];
 $building=$_SESSION['building'];
+$email=$_SESSION['ten_email'];
 if(isset($_POST['Submit'])){
   
     $gen=array('locks','window','tiles','other');
     $gen_checked=array();
     foreach($gen as $i){
         if(isset($_POST[$i])){
-            $sql="INSERT INTO tasks(house_no,building,category,task)
-            VALUES('$house_no','$building','general','$i')";
+            $sql="INSERT INTO tasks(house_no,email,building,category,task)
+            VALUES('$house_no','$email','$building','general','$i')";
           
             if($database->query($sql)===TRUE){
               $message="<p style='color:green'>Management will respond accordingly.</p>";
@@ -23,8 +24,8 @@ if(isset($_POST['Submit'])){
     $plumbing=array('drain','taps','pipes','cistern');
     foreach($plumbing as $i){
         if(isset($_POST[$i])){
-           $sql="INSERT INTO tasks(house_no,building,category,task)
-           VALUES('$house_no','$building','plumbing','$i')";
+           $sql="INSERT INTO tasks(house_no,email,building,category,task)
+           VALUES('$house_no','$email','$building','plumbing','$i')";
            if($database->query($sql)===TRUE){
              $message="<p style='color:green'>Management will respond accordingly.</p>";
            }else {
@@ -35,8 +36,8 @@ if(isset($_POST['Submit'])){
     $elec=array('switch','fuse','bulb','lights');
     foreach($elec as $i){
         if(isset($_POST[$i])){
-           $sql="INSERT INTO tasks(house_no,building,category,task)
-           VALUES('$house_no','$building','electric','$i') ";
+           $sql="INSERT INTO tasks(house_no,email,building,category,task)
+           VALUES('$house_no','$email','$building','electric','$i') ";
            if($database->query($sql)===TRUE){
             $message="<p style='color:green'>Management will respond accordingly.</p>";
            }else {
