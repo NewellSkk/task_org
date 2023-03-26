@@ -3,11 +3,34 @@
    require'../connect.php';
    
    $building=$_SESSION['building'];
-   $sql="SELECT * FROM tasks WHERE building='$building';";
-   $result=mysqli_query($database,$sql);
-    // while($row=mysqli_fetch_assoc($result)){
-    //     $row
-    // }    
+   $message="";
+   if(isset($_POST['Submit'])){
+        $task_id=0;
+         if(isset($_POST['done'])){
+            $task_id=$_POST['done'];
+            $sql="SELECT * FROM tasks WHERE id='$task_id';";
+            $result=mysqli_query($database,$sql);
+            $task=mysqli_fetch_assoc($result);
+            $house_no=$task['house_no']; 
+            $category=$task['category'];
+            $db_task=$task['task'];
+            $time_reported=$task['time'];
+            
+            $sql="INSERT INTO completed(id,house_no,building,category,task,time_reported)
+            VALUES('$task_id','$house_no','$building','$category','$db_task','$time_reported')";
+            if ($database->query($sql)===TRUE) 
+            {
+                $sql="DELETE FROM tasks WHERE id='$task_id';";
+                if($database->query($sql)===TRUE){
+                    $message="DONE";
+                }
+            }else{
+               $message="ERROR";
+            }
+           
+        }
+   }
+
    
   
    ?>
@@ -21,22 +44,28 @@
     <link rel="stylesheet" href="nav.css">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="ten_maintenance.css">
+    <link rel="stylesheet" href="tasks.css">
 </head>
 <body>
     <?php 
-    require'nav.php'
+    require'nav.php';
+    if(!empty($message)){
+        echo $message;
+    }
     ?>
     <div class='container'>
             <div class="category">
                 <span class="active general">General</span>
                 <span class="electric">Electric</span>
                 <span class="plumbing">Plumbing</span>
-            </div>
+            </div> 
             
-        <form action="#" method="post">
+
+            
+        <form action="tasks.php" method="post">
+            <input type="Submit" value="DONE" name="Submit">
 
             <div class="list show general" >
-                <input type="submit" value="DONE">
                 <?php
                     function card($res){
                         while($row=mysqli_fetch_assoc($res)){
@@ -47,7 +76,7 @@
                             $days= $interval->format('%a days');
                             $days=2;
                             if($days<3){
-                                echo '<div class="card"><p>TASK ID:'.$row['id']
+                                echo '<div class="card" style="order -'.$days.'"><p>TASK ID:'.$row['id']
                                 .'</p><p>HOUSE NUMBER:'.$row['house_no']
                                 .'</p><p>TASK:'.$row['task']
                                 .'</p><p>EMAIL'.$row['email']

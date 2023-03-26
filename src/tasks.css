@@ -1,18 +1,19 @@
 .card{
-    
+    margin:5px;
     font-size: 15px;
     background-color: rgb(70 187 191);
     color: black;
     width:250px
 }
-.card input{
+div.list.show input{
     background:#007373;
     color:white
   }
 .overdue .card{
     background-color:#8e2e21;
 }  
-.show{
+div.list.show{
     display: flex;
     flex-direction: row;
+    flex-wrap:wrap;
 }
