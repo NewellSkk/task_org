@@ -73,17 +73,16 @@
                             $datetime1 = new DateTime($row['time']);//start time
                             $datetime2 = new DateTime($current);//end time
                             $interval = $datetime1->diff($datetime2);
-                            $days= $interval->format('%a days');
-                            $days=2;
+                            $days= $interval->format('%a');
                             if($days<3){
-                                echo '<div class="card" style="order -'.$days.'"><p>TASK ID:'.$row['id']
+                                echo '<div class="card" style="order:-'.$days.'"><p>TASK ID:'.$row['id']
                                 .'</p><p>HOUSE NUMBER:'.$row['house_no']
                                 .'</p><p>TASK:'.$row['task']
                                 .'</p><p>EMAIL'.$row['email']
                                 .'</p><p>REPORTED:'.$days
                                 .' DAYS AGO</p><input type="radio" value="'.$row['id'].'" name="done">COMPLETE</div>';
                             }else{
-                                echo '<div class="overdue"><div class="card"><p>TASK ID:'.$row['id']
+                                echo '<div class="overdue" style="order:-'.$days.'"><div class="card"><p>TASK ID:'.$row['id']
                                 .'</p><p>HOUSE NUMBER:'.$row['house_no']
                                 .'</p><p>TASK:'.$row['task']
                                 .'</p><p>EMAIL'.$row['email']
