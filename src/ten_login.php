@@ -27,6 +27,7 @@
             $_SESSION['building']=$building;
             $_SESSION['house_no']=$house_no;
             $_SESSION['ten_email']=$db_data['email'];
+            $_SESSION['ten_name']=$db_data['name'];
             header("Location:ten_home.php");
 
         }

@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,20 +21,20 @@
     ?>
     <div class="container">
         <!-- DISPLAY ACCOUNT DETAILS -->
-        <div class="box">
+        <div class="box records"> 
             <div class="fl iconBox">
                 <i class="material-icons">list</i>
             </div>
             <label class="fl label"> Account Details </label>
         </div>
-        <!--
-            DISPLAY DETAILS HERE 
-            <div>
-            <p>Name:</p>
-            <p>House Number:</p>
-            <p>Email:</p>
+
+     
+        <div class='toggle tenant_form'>
+
+            <p>Name:<?php echo $_SESSION['ten_name']?></p>
+            <p>House Number:<?php echo $_SESSION['house_no']?></p>
+            <p>Email:<?php echo $_SESSION['ten_email']?></p>
         </div> 
-    -->
 
         <!-- CHANGE PASSWORD -->
         <div class="box">
@@ -44,6 +46,7 @@
         <!-- 
             DISPLAY FORM HERE
          -->
-    </div>    
+    </div> 
+    <script src="tenants.js"></script>   
 </body>
 </html>
