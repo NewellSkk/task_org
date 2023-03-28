@@ -43,7 +43,7 @@
     ?>
     <div class="container">
         <!-- DISPLAY ACCOUNT DETAILS -->
-        <div class="box records"> 
+        <div class="box records 1"> 
             <div class="fl iconBox">
                 <i class="material-icons">list</i>
             </div>
@@ -51,21 +51,21 @@
         </div>
 
      <!-- add tenant_form to classlist  -->
-        <div class='toggle'>
+        <div class='toggle' id='one'>
             <p>Name:<?php echo $_SESSION['ten_name']?></p>
             <p>House Number:<?php echo $house_no?></p>
             <p>Email:<?php echo $_SESSION['ten_email']?></p>
         </div> 
 
         <!-- CHANGE PASSWORD -->
-        <div class="box records">
+        <div class="box records 2">
             <div class="fl iconBox">
                 <i class="material-icons">mode_edit</i>
             </div>
             <label class="fl label"> Change Password </label>
         </div>
         <!-- add tenant_form to classlist  -->
-        <div class='toggle'>
+        <div class='toggle' id='two'>
         <form action="#" method="post">
             <div class="box">
                 <label for="old_pass" class="fl label"> Old Password </label>
@@ -93,6 +93,6 @@
         </div>
        
     </div> 
-    <script src="tenants.js"></script>   
+    <script src="ten_home.js"></script>   
 </body>
 </html>
