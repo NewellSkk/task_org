@@ -1,38 +1,7 @@
 <?php
    session_start();
    require'../connect.php';
-   
    $building=$_SESSION['building'];
-   $message="";
-   if(isset($_POST['Submit'])){
-        $task_id=0;
-         if(isset($_POST['done'])){
-            $task_id=$_POST['done'];
-            $sql="SELECT * FROM tasks WHERE id='$task_id';";
-            $result=mysqli_query($database,$sql);
-            $task=mysqli_fetch_assoc($result);
-            $house_no=$task['house_no']; 
-            $category=$task['category'];
-            $db_task=$task['task'];
-            $time_reported=$task['time'];
-            
-            $sql="INSERT INTO completed(id,house_no,building,category,task,time_reported)
-            VALUES('$task_id','$house_no','$building','$category','$db_task','$time_reported')";
-            if ($database->query($sql)===TRUE) 
-            {
-                $sql="DELETE FROM tasks WHERE id='$task_id';";
-                if($database->query($sql)===TRUE){
-                    $message="DONE";
-                }
-            }else{
-               $message="ERROR";
-            }
-           
-        }
-   }
-
-   
-  
    ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,14 +22,12 @@
         echo $message;
     }
     ?>
-    <div class='container'>
-          
-            
-
-            
-        <form action="tasks.php" method="post">
-            <input type="Submit" value="DONE" name="Submit">
-
+    <div class='container'>      
+        <form action="#" method="post">
+            <div>
+                <input type="text" name="find_house" placeholder="HOUSE NUMBER">
+                <input type="submit" name="find_btn"value="FIND">
+            </div>
             <div class="list show" >
                 <?php
                     function card($res){
@@ -77,15 +44,26 @@
                                 .'</p><p>CATEGORY'.$row['category']
                                 .'</p><p>COMPLETED IN:'.$days
                                 .' DAYS</p></div>';
-                            
+                                }
 
                          }
+                    
+                    if (isset($_POST['find_btn'])) {
+                        $find_house=$_POST['find_house'];
+                        $sql="SELECT * FROM completed WHERE (building='$building' AND house_no='$find_house');";
+                        $result=mysqli_query($database,$sql);
+                        card($result);
+                        if(!((mysqli_num_rows($result))>0))  {
+                            echo "<div>NO TASKS FOUND!</div> ";
+                            sleep(2);
+                            header("location:completed.php");
+                
+                        }                      
+                    }else{
+                        $sql="SELECT * FROM completed WHERE building='$building';";
+                        $result=mysqli_query($database,$sql);
+                         card($result);
                     } 
-
-                     $sql="SELECT * FROM completed WHERE building='$building';";
-                     $result=mysqli_query($database,$sql);
-                     card($result);
-                     
                 ?>
             </div>    
          </form>
