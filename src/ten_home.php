@@ -51,7 +51,7 @@
         </div>
 
      <!-- add tenant_form to classlist  -->
-        <div class='toggle' id='one'>
+        <div class='tenant_form'id='one'>
             <p>Name:<?php echo $_SESSION['ten_name']?></p>
             <p>House Number:<?php echo $house_no?></p>
             <p>Email:<?php echo $_SESSION['ten_email']?></p>
@@ -65,11 +65,11 @@
             <label class="fl label"> Change Password </label>
         </div>
         <!-- add tenant_form to classlist  -->
-        <div class='toggle' id='two'>
+        <div class='tenant_form' id='two'>
         <form action="#" method="post">
             <div class="box">
                 <label for="old_pass" class="fl label"> Old Password </label>
-                <div class="fl iconBox"><i class="material-icons">vpn_key</i></div>
+                <div class="fl iconBox"><i class="material-icons">report_problem</i></div>
                 <div class="fl">
                         <input type="Password" required name="old_pass" placeholder="Old Password" class="textBox">
                 </div>    
